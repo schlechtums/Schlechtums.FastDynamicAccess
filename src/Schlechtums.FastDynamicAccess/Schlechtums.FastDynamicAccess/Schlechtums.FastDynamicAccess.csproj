@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <PackageProjectUrl>https://github.com/schlechtums/Schlechtums.FastDynamicAccess</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/schlechtums/Schlechtums.FastDynamicAccess</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <Company>Brian Adams</Company>
+    <Authors>Brian Adams</Authors>
+    <Description>Class for very quickly accessing class members dynamically at runtime.</Description>
+  </PropertyGroup>
+
+</Project>
