@@ -5,16 +5,16 @@ using System.Text;
 
 namespace Schlechtums.FastDynamicAccess.Types
 {
-    public class PropertyAccessors
+    internal class PropertyAccessors
     {
         /// <summary>
         /// Boolean if the property has an accessible getter or not.
         /// </summary>
-        public Boolean HasGetter { get; set; }
+        internal Boolean HasGetter { get; set; }
 
         /// <summary>
         /// Boolean if the property has an accessible setter or not.
         /// </summary>
-        public Boolean HasSetter { get; set; }
+        internal Boolean HasSetter { get; set; }
     }
 }

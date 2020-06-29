@@ -5,25 +5,25 @@ using System.Reflection;
 
 namespace Schlechtums.FastDynamicAccess.Types
 {
-	public class ModelData
+	internal class ModelData
 	{
-		public Dictionary<String, PropertyInfo> ModelProperties;
-		public List<String> ModelPropertiesNames;
-		public Dictionary<String, PropertyInfo> AllNestedModelProperties;
-		public List<String> AllNestedModelPropertyNames;
-		public Dictionary<String, String> ModelPropertiesSprocParameterNames;
-		public Dictionary<String, String> AllNestedModelPropertiesSprocParameterNames;
-		public Dictionary<String, String> ModelWriteStringFormats;
-		public Dictionary<String, String> ModelReadStringFormats;
-		public Dictionary<String, ParameterDirection> ModelParameterDirections;
-		public Dictionary<DataTable, List<String>> ModelPropertiesNotReturnedFromDT;
-		public Dictionary<String, Boolean> NullableModelProperties;
-		public Dictionary<String, Object> ModelPropertiesDefaultValues;
-		public Dictionary<String, PropertyInfo> NestedModelBaseProperties; // delete?
-		public Dictionary<String, PropertyAccessors> ModelPropertiesAccessors;
-		public Dictionary<String, String> SprocParamterNameToModelPropertyName;
-		public Dictionary<String, String> ColumnToModelMappings;
-		public FastDynamicAccess FastDynamicAccess;
-		public Dictionary<Type, Boolean> NestedTypesInstantiatedInConstructor;
+		internal Dictionary<String, PropertyInfo> ModelProperties;
+		internal List<String> ModelPropertiesNames;
+		internal Dictionary<String, PropertyInfo> AllNestedModelProperties;
+		internal List<String> AllNestedModelPropertyNames;
+		internal Dictionary<String, String> ModelPropertiesSprocParameterNames;
+		internal Dictionary<String, String> AllNestedModelPropertiesSprocParameterNames;
+		internal Dictionary<String, String> ModelWriteStringFormats;
+		internal Dictionary<String, String> ModelReadStringFormats;
+		internal Dictionary<String, ParameterDirection> ModelParameterDirections;
+		internal Dictionary<DataTable, List<String>> ModelPropertiesNotReturnedFromDT;
+		internal Dictionary<String, Boolean> NullableModelProperties;
+		internal Dictionary<String, Object> ModelPropertiesDefaultValues;
+		internal Dictionary<String, PropertyInfo> NestedModelBaseProperties; // delete?
+		internal Dictionary<String, PropertyAccessors> ModelPropertiesAccessors;
+		internal Dictionary<String, String> SprocParamterNameToModelPropertyName;
+		internal Dictionary<String, String> ColumnToModelMappings;
+		internal FastDynamicAccess FastDynamicAccess;
+		internal Dictionary<Type, Boolean> NestedTypesInstantiatedInConstructor;
 	}
 }
