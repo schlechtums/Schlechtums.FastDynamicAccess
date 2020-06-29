@@ -8,7 +8,7 @@
     <Company>Brian Adams</Company>
     <Authors>Brian Adams</Authors>
     <Description>Class for very quickly accessing class members dynamically at runtime.</Description>
-    <Version>1.0.1</Version>
+    <Version>1.0.2</Version>
   </PropertyGroup>
 
 </Project>
