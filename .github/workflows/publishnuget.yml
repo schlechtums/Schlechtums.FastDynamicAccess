@@ -22,7 +22,7 @@ jobs:
         with:
           source-url: https://nuget.pkg.github.com/schlechtums/index.json
         env:
-          NUGET_AUTH_TOKEN: ${{secrets.FASTDYNAMICACCESSTOKEN}}        
+          NUGET_AUTH_TOKEN: ${{secrets.GITHUBTOKEN}}        
 
       - name: Build solution and generate NuGet package
         run: cd src\Schlechtums.FastDynamicAccess &&
