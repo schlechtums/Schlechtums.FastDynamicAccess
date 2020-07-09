@@ -27,8 +27,8 @@ using System.Runtime.Serialization;
 using System.Security.Cryptography;
 using System.Threading;
 
-[assembly: InternalsVisibleTo("System.Data.DBAccess.Generic.UnitTest")]
-[assembly: InternalsVisibleTo("System.Data.DBAccess.Generic")]
+[assembly: InternalsVisibleTo("Schlechtums.DataAccessLayer")]
+[assembly: InternalsVisibleTo("Schlechtums.DataAccessLayer.UnitTest")]
 
 namespace Schlechtums.FastDynamicAccess
 {
