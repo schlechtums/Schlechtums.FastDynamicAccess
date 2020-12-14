@@ -67,7 +67,22 @@ namespace Schlechtums.FastDynamicAccess
         /// <returns>The value.</returns>
         public static Object GetValue(this Object obj, String propertyName)
         {
-            return FastDynamicAccess.Get(obj).Get(obj, propertyName);
+            return FastDynamicAccess.Get(obj).GetValue(obj, propertyName);
+        }
+
+        public static Object GetValue(this FastDynamicAccess fda, Object obj, String propertyName)
+        {
+            return fda.Get(obj, propertyName);
+        }
+
+        public static Object TryGetValue(this Object obj, String propertyName)
+        {
+            return FastDynamicAccess.Get(obj).TryGet(obj, propertyName);
+        }
+
+        public static Object TryGetValue(this FastDynamicAccess fda, Object obj, String propertyName)
+        {
+            return fda.TryGet(obj, propertyName);
         }
 
         /// <summary>
@@ -80,6 +95,21 @@ namespace Schlechtums.FastDynamicAccess
         public static T GetValue<T>(this Object obj, String propertyName)
         {
             return FastDynamicAccess.Get(obj).Get<T>(obj, propertyName);
+        }
+
+        public static T GetValue<T>(this FastDynamicAccess fda, Object obj, String propertyName)
+        {
+            return fda.Get<T>(obj, propertyName);
+        }
+
+        public static T TryGetValue<T>(this Object obj, String propertyName)
+        {
+            return FastDynamicAccess.Get(obj).TryGet<T>(obj, propertyName);
+        }
+
+        public static T TryGetValue<T>(this FastDynamicAccess fda, Object obj, String propertyName)
+        {
+            return fda.TryGet<T>(obj, propertyName);
         }
 
         /// <summary>
@@ -103,6 +133,21 @@ namespace Schlechtums.FastDynamicAccess
         public static T GetValue<T>(this Object obj, int propertyIndex)
         {
             return FastDynamicAccess.Get(obj).Get<T>(obj, propertyIndex);
+        }
+
+        public static Object GetValueRecursive(this Object obj, String property, String delimiter = ".")
+        {
+            foreach (var p in property.Split(delimiter))
+            {
+                obj = obj.GetValue(p);
+            }
+
+            return obj;
+        }
+
+        public static T GetValueRecursive<T>(this Object obj, String property, String delimiter = ".")
+        {
+            return (T)obj.GetValueRecursive(property, delimiter);
         }
 
         /// <summary>
