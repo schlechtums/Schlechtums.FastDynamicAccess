@@ -24,6 +24,10 @@ jobs:
         env:
           NUGET_AUTH_TOKEN: ${{secrets.GITHUBTOKEN}}        
 
+      - name: Unit Test
+        run: cd src\Schlechtums.FastDynamicAccess &&
+             dotnet test -c Release
+
       - name: Build solution and generate NuGet package
         run: cd src\Schlechtums.FastDynamicAccess &&
              dotnet build -c Release /property:Version=1.1.0.${env:GITHUB_RUN_NUMBER} &&
