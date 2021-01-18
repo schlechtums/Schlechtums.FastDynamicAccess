@@ -70,19 +70,15 @@ namespace Schlechtums.FastDynamicAccess
             return FastDynamicAccess.Get(obj).GetValue(obj, propertyName);
         }
 
-        public static Object GetValue(this FastDynamicAccess fda, Object obj, String propertyName)
-        {
-            return fda.Get(obj, propertyName);
-        }
-
+        /// <summary>
+        /// Tries to get a value from an object via FastDynamicAccess.
+        /// </summary>
+        /// <param name="obj">The object to read from.</param>
+        /// <param name="propertyName">The property to read.</param>
+        /// <returns>The value or null.</returns>
         public static Object TryGetValue(this Object obj, String propertyName)
         {
-            return FastDynamicAccess.Get(obj).TryGet(obj, propertyName);
-        }
-
-        public static Object TryGetValue(this FastDynamicAccess fda, Object obj, String propertyName)
-        {
-            return fda.TryGet(obj, propertyName);
+            return FastDynamicAccess.Get(obj).TryGetValue(obj, propertyName);
         }
 
         /// <summary>
@@ -94,22 +90,19 @@ namespace Schlechtums.FastDynamicAccess
         /// <returns>The value cast to a T.</returns>
         public static T GetValue<T>(this Object obj, String propertyName)
         {
-            return FastDynamicAccess.Get(obj).Get<T>(obj, propertyName);
+            return FastDynamicAccess.Get(obj).GetValue<T>(obj, propertyName);
         }
 
-        public static T GetValue<T>(this FastDynamicAccess fda, Object obj, String propertyName)
-        {
-            return fda.Get<T>(obj, propertyName);
-        }
-
+        /// <summary>
+        /// Tries to get a value from an object via FastDynamicAccess.
+        /// </summary>
+        /// <typeparam name="T">The type to return.</typeparam>
+        /// <param name="obj">The object to read from.</param>
+        /// <param name="propertyName">The property to read.</param>
+        /// <returns>The value or null.</returns>
         public static T TryGetValue<T>(this Object obj, String propertyName)
         {
-            return FastDynamicAccess.Get(obj).TryGet<T>(obj, propertyName);
-        }
-
-        public static T TryGetValue<T>(this FastDynamicAccess fda, Object obj, String propertyName)
-        {
-            return fda.TryGet<T>(obj, propertyName);
+            return FastDynamicAccess.Get(obj).TryGetValue<T>(obj, propertyName);
         }
 
         /// <summary>
@@ -120,7 +113,7 @@ namespace Schlechtums.FastDynamicAccess
         /// <returns>The value.</returns>
         public static Object GetValue(this Object obj, int propertyIndex)
         {
-            return FastDynamicAccess.Get(obj).Get(obj, propertyIndex);
+            return FastDynamicAccess.Get(obj).GetValue(obj, propertyIndex);
         }
 
         /// <summary>
@@ -132,12 +125,19 @@ namespace Schlechtums.FastDynamicAccess
         /// <returns>The value cast to a T.</returns>
         public static T GetValue<T>(this Object obj, int propertyIndex)
         {
-            return FastDynamicAccess.Get(obj).Get<T>(obj, propertyIndex);
+            return FastDynamicAccess.Get(obj).GetValue<T>(obj, propertyIndex);
         }
 
-        public static Object GetValueRecursive(this Object obj, String property, String delimiter = ".")
+        /// <summary>
+        /// Gets a value at a property path i.e. Person.Occupation.Salary
+        /// </summary>
+        /// <param name="obj">The object to read from.</param>
+        /// <param name="propertyPath">The property path to read.</param>
+        /// <param name="delimiter">The property path delimiter</param>
+        /// <returns>The value cast to a T.</returns>
+        public static Object GetValueAtPath(this Object obj, String propertyPath, String delimiter = ".")
         {
-            foreach (var p in property.Split(delimiter))
+            foreach (var p in propertyPath.Split(delimiter))
             {
                 obj = obj.GetValue(p);
             }
@@ -145,9 +145,50 @@ namespace Schlechtums.FastDynamicAccess
             return obj;
         }
 
-        public static T GetValueRecursive<T>(this Object obj, String property, String delimiter = ".")
+        /// <summary>
+        /// Tries to get a value at a property path i.e. Person.Occupation.Salary
+        /// </summary>
+        /// <param name="obj">The object to read from.</param>
+        /// <param name="propertyPath">The property path to read.</param>
+        /// <param name="delimiter">The property path delimiter</param>
+        /// <returns>The value or null.</returns>
+        public static Object TryGetValueAtPath(this Object obj, String propertyPath, String delimiter = ".")
         {
-            return (T)obj.GetValueRecursive(property, delimiter);
+            foreach (var p in propertyPath.Split(delimiter))
+            {
+                if (obj == null)
+                    return null;
+
+                obj = obj.GetValue(p);
+            }
+
+            return obj;
+        }
+
+        /// <summary>
+        /// Tries to get a value at a property path i.e. Person.Occupation.Salary
+        /// </summary>
+        /// <typeparam name="T">The type to return.</typeparam>
+        /// <param name="obj">The object to read from.</param>
+        /// <param name="propertyPath">The property path to read.</param>
+        /// <param name="delimiter">The property path delimiter</param>
+        /// <returns>The value cast to a T or null.</returns>
+        public static T GetValueAtPath<T>(this Object obj, String propertyPath, String delimiter = ".")
+        {
+            return (T)obj.GetValueAtPath(propertyPath, delimiter);
+        }
+
+        /// <summary>
+        /// Tries to get a value at a property path i.e. Person.Occupation.Salary
+        /// </summary>
+        /// <typeparam name="T">The type to return.</typeparam>
+        /// <param name="obj">The object to read from.</param>
+        /// <param name="propertyPath">The property path to read.</param>
+        /// <param name="delimiter">The property path delimiter</param>
+        /// <returns>The value or null.</returns>
+        public static Object TryGetValueAtPath<T>(this Object obj, String PropertyPath, String delimiter = ".")
+        {
+            return (T)obj.TryGetValueAtPath(PropertyPath, delimiter);
         }
 
         /// <summary>
@@ -158,7 +199,7 @@ namespace Schlechtums.FastDynamicAccess
         /// <param name="value">The value to set.</param>
         public static void SetValue(this Object obj, String propertyName, Object value)
         {
-            FastDynamicAccess.Get(obj).Set(obj, propertyName, value);
+            FastDynamicAccess.Get(obj).SetValue(obj, propertyName, value);
         }
 
         /// <summary>
@@ -169,7 +210,7 @@ namespace Schlechtums.FastDynamicAccess
         /// <param name="value">The value to set.</param>
         public static void SetValue(this Object obj, int propertyIndex, Object value)
         {
-            FastDynamicAccess.Get(obj).Set(obj, propertyIndex, value);
+            FastDynamicAccess.Get(obj).SetValue(obj, propertyIndex, value);
         }
         #endregion
     }
