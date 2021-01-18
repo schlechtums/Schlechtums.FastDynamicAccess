@@ -10,6 +10,7 @@
     <Description>Class for very quickly accessing class members dynamically at runtime.</Description>
     <Version>1.0.6</Version>
     <AssemblyVersion>1.0.6.0</AssemblyVersion>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 
 </Project>
