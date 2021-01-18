@@ -24,14 +24,14 @@ jobs:
         env:
           NUGET_AUTH_TOKEN: ${{secrets.GITHUBTOKEN}}        
 
-      - name: Unit Test
-        run: cd src\Schlechtums.FastDynamicAccess &&
-             dotnet test -c Release
-
       - name: Build solution and generate NuGet package
-        run: cd src\Schlechtums.FastDynamicAccess &&
-             dotnet build -c Release /property:Version=1.1.0.${env:GITHUB_RUN_NUMBER} &&
-             dotnet pack -c Release -o out /property:Version=1.1.0.${env:GITHUB_RUN_NUMBER}
+        run: for /r %%i IN (*.sln) DO ( dotnet build "%%i" -nologo -c Release /property:Version=2.0.0.%GITHUB_RUN_NUMBER% )
+        shell: cmd
 
+      - name: Unit Test
+        run: for /r %%i IN (*.sln) DO ( dotnet test "%%i" )
+        shell: cmd
+        
       - name: Push generated package to GitHub registry
-        run: dotnet nuget push src\Schlechtums.FastDynamicAccess\out\*.nupkg --skip-duplicate --no-symbols true
+        run: for /r %%i IN (*.nupkg) DO ( nuget push "%%i" -SkipDuplicate -NoSymbols )
+        shell: cmd
