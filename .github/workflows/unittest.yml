@@ -1,27 +1,28 @@
-name: Publish Nuget Package
+name: Unit Test
 
 on:
   push:
-    branches:
+    branches-ignore:
+      - master
       - dev
       - develop
+  pull_request:
+    branches-ignore:
+      - master
 
 env:
   SOLUTION_FOLDER: 'src/Schlechtums.FastDynamicAccess'
-  DOTNET_VERSION: "3.1.301" # set this to the dotnet version to use
-
 jobs:
   build:
     runs-on: ubuntu-latest
-    name: Publish NuGet package
+    name: Unit Test Commit
     steps:
-      - name: "Checkout GitHub Action"
+      - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Setup DotNet ${{ env.DOTNET_VERSION }} Environment
+      - name: Setup .NET Core @ Latest
         uses: actions/setup-dotnet@v1
         with:
-          dotnet-version: ${{ env.DOTNET_VERSION }}
           source-url: https://nuget.pkg.github.com/schlechtums/index.json
         env:
           NUGET_AUTH_TOKEN: ${{secrets.GITHUBTOKEN}}
@@ -31,6 +32,3 @@ jobs:
 
       - name: Unit Test
         run: cd ${{ env.SOLUTION_FOLDER }}; dotnet test -nologo -c Release
-
-      - name: Push generated package to GitHub registry
-        run: find . -name '*.nupkg' -exec nuget push {} -SkipDuplicate -NoSymbols \;
