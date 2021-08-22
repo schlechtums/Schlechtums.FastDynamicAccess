@@ -27,6 +27,7 @@ jobs:
         uses: actions/setup-dotnet@v1
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
+          source-url: https://api.nuget.org/v3/index.json
 
       - name: Unit Test
         run: cd ${{ env.SOLUTION_FOLDER }}; dotnet test -nologo -c Release
