@@ -11,7 +11,7 @@ on:
 
 env:
   SOLUTION_FOLDER: 'src/Schlechtums.FastDynamicAccess'
-  VERSION: '2.0.0'
+  VERSION: '2.0.1'
   DOTNET_VERSION: "3.1.301" # set this to the dotnet version to use
 
 jobs:
@@ -27,9 +27,9 @@ jobs:
         uses: actions/setup-dotnet@v1
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
-          source-url: https://nuget.pkg.github.com/schlechtums/index.json
+          source-url: https://api.nuget.org/v3/index.json
         env:
-          NUGET_AUTH_TOKEN: ${{secrets.GITHUBTOKEN}}        
+          NUGET_AUTH_TOKEN: ${{ secrets.NUGET_ORG_PUSH }}
 
       - name: Unit Test
         run: cd ${{ env.SOLUTION_FOLDER }}; dotnet test -nologo -c Release
