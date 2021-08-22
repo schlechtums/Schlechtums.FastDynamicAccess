@@ -1,37 +1,36 @@
-# This is a basic workflow to help you get started with Actions
+name: Publish Nuget Package
 
-name: CI
-
-# Controls when the action will run. Triggers the workflow on push or pull request
-# events but only for the master branch
 on:
   push:
-    branches: [ master ]
+    branches:
+      - dev
+      - develop
+
+env:
+  SOLUTION_FOLDER: 'src/Schlechtums.FastDynamicAccess'
+  DOTNET_VERSION: "3.1.301" # set this to the dotnet version to use
 
 jobs:
   build:
-    runs-on: windows-latest
-    name: Update NuGet package
+    runs-on: ubuntu-latest
+    name: Publish NuGet package
     steps:
-
-      - name: Checkout repository
+      - name: "Checkout GitHub Action"
         uses: actions/checkout@v2
 
-      - name: Setup .NET Core @ Latest
+      - name: Setup DotNet ${{ env.DOTNET_VERSION }} Environment
         uses: actions/setup-dotnet@v1
         with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
           source-url: https://nuget.pkg.github.com/schlechtums/index.json
         env:
-          NUGET_AUTH_TOKEN: ${{secrets.GITHUBTOKEN}}        
+          NUGET_AUTH_TOKEN: ${{secrets.GITHUBTOKEN}}
 
-      - name: Build solution and generate NuGet package
-        run: for /r %%i IN (*.sln) DO ( dotnet build "%%i" -nologo -c Release /property:Version=2.0.0.%GITHUB_RUN_NUMBER% )
-        shell: cmd
+      - name: Build Solution
+        run: cd ${{ env.SOLUTION_FOLDER }}; dotnet build -nologo -c Release
 
       - name: Unit Test
-        run: for /r %%i IN (*.sln) DO ( dotnet test "%%i" )
-        shell: cmd
-        
+        run: cd ${{ env.SOLUTION_FOLDER }}; dotnet test -nologo -c Release
+
       - name: Push generated package to GitHub registry
-        run: for /r %%i IN (*.nupkg) DO ( nuget push "%%i" -SkipDuplicate -NoSymbols )
-        shell: cmd
+        run: find . -name '*.nupkg' -exec nuget push {} -SkipDuplicate -NoSymbols \;
