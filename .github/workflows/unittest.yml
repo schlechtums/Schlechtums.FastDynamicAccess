@@ -1,0 +1,34 @@
+name: Unit Test
+
+on:
+  push:
+    branches-ignore:
+      - master
+      - dev
+      - develop
+  pull_request:
+    branches-ignore:
+      - master
+
+env:
+  SOLUTION_FOLDER: 'src/Schlechtums.FastDynamicAccess'
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    name: Unit Test Commit
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Setup .NET Core @ Latest
+        uses: actions/setup-dotnet@v1
+        with:
+          source-url: https://nuget.pkg.github.com/schlechtums/index.json
+        env:
+          NUGET_AUTH_TOKEN: ${{secrets.GITHUBTOKEN}}
+
+      - name: Build Solution
+        run: cd ${{ env.SOLUTION_FOLDER }}; dotnet build -nologo -c Release
+
+      - name: Unit Test
+        run: cd ${{ env.SOLUTION_FOLDER }}; dotnet test -nologo -c Release
