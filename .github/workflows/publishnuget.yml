@@ -27,9 +27,6 @@ jobs:
         uses: actions/setup-dotnet@v1
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
-          source-url: https://api.nuget.org/v3/index.json
-        env:
-          NUGET_AUTH_TOKEN: ${{ secrets.NUGET_ORG_PUSH }}
 
       - name: Unit Test
         run: cd ${{ env.SOLUTION_FOLDER }}; dotnet test -nologo -c Release
@@ -38,4 +35,4 @@ jobs:
         run: cd ${{ env.SOLUTION_FOLDER }}; dotnet build -nologo -c Release /property:Version=${{ env.VERSION }}.$GITHUB_RUN_NUMBER
 
       - name: Push generated package to GitHub registry
-        run: find . -name '*.nupkg' -exec nuget push {} -SkipDuplicate -NoSymbols \;
+        run: find . -name '*.nupkg' -exec dotnet nuget push {} -SkipDuplicate -NoSymbols --api-key ${{ secrets.NUGET_ORG_PUSH }} --source https://api.nuget.org/v3/index.json \;
