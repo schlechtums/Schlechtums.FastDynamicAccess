@@ -38,4 +38,4 @@ jobs:
         run: cd ${{ env.SOLUTION_FOLDER }}; dotnet build -nologo -c Release /property:Version=${{ env.VERSION }}.$GITHUB_RUN_NUMBER
 
       - name: Push to nuget.org
-        run: find . -name '*.nupkg' -exec nuget push {} -SkipDuplicate -NoSymbols -ApiKey ${{ secrets.NUGET_ORG_PUSH }} \;
+        run: find . -name '*.nupkg' -exec nuget push {} -SkipDuplicate -NoSymbols \;
