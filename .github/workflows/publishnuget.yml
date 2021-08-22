@@ -35,6 +35,4 @@ jobs:
         run: cd ${{ env.SOLUTION_FOLDER }}; dotnet build -nologo -c Release /property:Version=${{ env.VERSION }}.$GITHUB_RUN_NUMBER
 
       - name: Push to nuget.org
-        run: |
-          dotnet nuget add source https://api.nuget.org/v3/index.json --name schlechtums --username schlechtums --password ${{ secrets.NUGET_ORG_PUSH }} --store-password-in-clear-text
-          find . -name '*.nupkg' -exec dotnet nuget push {} --skip-duplicate --no-symbols --source schlechtums \;
+        run: find . -name '*.nupkg' -exec dotnet nuget push {} --skip-duplicate --no-symbols --source nuget.org --api-key ${{ secrets.NUGET_ORG_PUSH }} \;
